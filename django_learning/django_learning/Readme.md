@@ -42,3 +42,5 @@ python3 manage.py createsuperuser
 news/admin.py
 
 class Meta
+
+python3 manage.py collectstatic

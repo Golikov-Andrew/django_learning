@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django_learning import settings
 from django.conf.urls.static import static
-from news.views import index
+#from news.views import index
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rmdv-#zc^^oogjpxvqrde3u2pz1-g9#i)7f@$+(eafh28xfs0r'
+# SECRET_KEY = 'django-insecure-rmdv-#zc^^oogjpxvqrde3u2pz1-g9#i)7f@$+(eafh28xfs0r'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'ckeditor',
+    'ckeditor_uploader',
     'news.apps.NewsConfig',
     
 ]
@@ -136,3 +141,13 @@ MEDIA_URL = '/media/'
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
+
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'

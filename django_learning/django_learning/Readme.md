@@ -107,3 +107,7 @@ News.objects.raw("SELECT id, title FROM news_news")
 News.objects.raw("SELECT id, title FROM news_news WHERE title = %s", ['News 5'])
 
 pip install django-debug-toolbar
+pip install django-ckeditor
+python3 manage.py collectstatic
+
+pip install django-simple-captcha

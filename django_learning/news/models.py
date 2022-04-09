@@ -4,6 +4,7 @@ from django.urls import reverse
 
 class Category(models.Model):
     title=models.CharField(max_length=150, db_index=True, verbose_name='Наименование категории')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'category_id': self.pk})
@@ -27,6 +28,7 @@ class News(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
     views = models.IntegerField(default=0)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
         return self.title

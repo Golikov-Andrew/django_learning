@@ -1,6 +1,7 @@
 import os
 from re import template
 from unicodedata import category
+from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
 # from ..django_learning.settings import EMAIL_HOST_USER
@@ -18,7 +19,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 
 
-def test(request):
+def contacts(request):
     # objects = ['john1', 'paul2', 'george3', 'ringo4',
     # 'john5', 'paul6', 'george7', 'ringo8','john9', 'paul10', 'george11', 'ringo12']
     # paginator = Paginator(objects, 2)
@@ -37,12 +38,12 @@ def test(request):
             )
             if result == 1:
                 messages.success(request, 'Письмо отправлено')
-                return redirect('test')
+                return redirect('contacts')
             else:
                 messages.error(request, 'Письмо не отправлено')
 
         else:
-            messages.error(request, 'Ошибка регистрации')
+            messages.error(request, 'Ошибка валидации')
     else:
         form = ContactForm()
 
@@ -185,3 +186,11 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('<h1>Page Not Found</h1>')
+
+def archive(request, year):
+    if int(year) > 2020:
+        raise Http404()
+    return HttpResponse(f"<h1>Archive</h1><p>{year}</p>")

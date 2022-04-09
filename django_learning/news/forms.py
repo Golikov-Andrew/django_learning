@@ -5,6 +5,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField, CaptchaTextInput
 
 """
 class NewsForm(forms.Form):
@@ -24,11 +25,13 @@ class NewsForm(forms.Form):
 
 
 class NewsForm(forms.ModelForm):
+
+
     class Meta:
         model = News
         # fields = '__all__'
         fields = [
-            'title', 'content', 'is_published', 'category'
+            'title', 'content', 'is_published', 'category', 'slug'
         ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -76,6 +79,10 @@ class UserLoginForm(AuthenticationForm):
         label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
+# class CustomCaptchaTextInput(CaptchaTextInput):
+#     template_name = 'custom_field.html'
+
+
 class ContactForm(forms.Form):
     subject = forms.CharField(
         label='Тема',
@@ -84,3 +91,4 @@ class ContactForm(forms.Form):
     content = forms.CharField(label="Text",
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows':5})
         )
+    captcha = CaptchaField(widget=CaptchaTextInput)

@@ -7,7 +7,7 @@ from .models import News, Category
 
 class NewsAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget())
-
+    # prepopulated_fields = {'slug':('title',)}
     class Meta:
         model = News
         fields = '__all__'
@@ -24,6 +24,8 @@ class NewsAdmin(admin.ModelAdmin):
     fields = ('title','category','content','photo','get_photo','is_published','views','created_at','updated_at')
     readonly_fields = ('get_photo','views','created_at','updated_at')
     save_on_top = True
+    # prepopulated_fields = {'slug':('title',)}
+    
 
 
     def get_photo(self, obj):
@@ -36,6 +38,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id','title')
     list_display_links = ('id','title')
     search_fields = ('title',)
+    prepopulated_fields = {'slug':('title',)}
 
 
 admin.site.register(News, NewsAdmin)

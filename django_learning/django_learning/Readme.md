@@ -4,6 +4,8 @@ source venv/bin/activate
 pip install Django
 python3 -m pip install Pillow
 
+or 
+
 django-admin startproject project_name
 cd project_name
 
